@@ -1,0 +1,17 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.fixAll.eslint": "explicit"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.indentSize": 2
+    },
+    "eslint.validate": [
+        "typescript",
+        "javascript",
+        "yaml",
+        "github-actions-workflow"
+    ]
+}
