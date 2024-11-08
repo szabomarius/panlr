@@ -1,0 +1,29 @@
+name: Unit Testing CI
+
+on:
+  push:
+    branches: 
+      - main  # Trigger the workflow on push events to main branch
+  pull_request:
+    branches: 
+      - main  # Trigger the workflow on pull requests to main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.11.0]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }} 
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - run: npm ci
+
+    - run: npm test
