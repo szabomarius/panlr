@@ -10,4 +10,8 @@ export default {
         },
     },
     setupFilesAfterEnv: ['<rootDir>/tests/setup-tests.ts'],
+    moduleNameMapper: {
+        '@/(.*)': '<rootDir>/src/$1',
+    },
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
