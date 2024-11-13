@@ -48,19 +48,32 @@ describe('Comic Panel Generator', () => {
     });
 
     describe('log', () => {
-        it('should log the empty grid nicely', () => {
-            const logSpy = jest.spyOn(console, 'log');
-            panlr.log();
-            // The expected grid string with proper spacing
-            const expectedGrid = [
+        it('should log the empty grid on a 3x3', () => {
+            const log = panlr.toString();
+            const expectedGridLog = [
                 '┌───────┐',
                 '│ . . . │',
                 '│ . . . │',
                 '│ . . . │',
                 '└───────┘',
             ].join('\n');
-
-            expect(logSpy).toHaveBeenCalledWith(expectedGrid);
+            expect(log).toBe(expectedGridLog);
+        });
+        it('should log the grid on a 2x2', () => {
+            panlr = new Panlr({
+                cols: 2,
+                rows: 2,
+                maxPanelSize: { cols: 1, rows: 1 },
+                minPanelSize: { cols: 1, rows: 1 },
+            });
+            const log = panlr.toString();
+            const expectedGridLog = [
+                '┌─────┐',
+                '│ . . │',
+                '│ . . │',
+                '└─────┘',
+            ].join('\n');
+            expect(log).toBe(expectedGridLog);
         });
     });
 

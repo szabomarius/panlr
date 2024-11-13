@@ -3,6 +3,11 @@ import {
     type TGridGeneratorState,
 } from '@/types/generator';
 import { type TGridConfig } from '@/types/grid';
+import {
+    createEmptyGrid,
+    fillPanelsInGrid,
+    gridToString,
+} from '@/utils/loggerUtils';
 
 export class Panlr implements TGridGenerator {
     private _state: TGridGeneratorState;
@@ -31,7 +36,11 @@ export class Panlr implements TGridGenerator {
         };
     }
 
-    log(): void {
-        throw new Error('Method not implemented.');
+    toString(): string {
+        const { rows, cols } = this._state.settings;
+        const { panels } = this._state;
+        const grid = createEmptyGrid(rows, cols);
+        fillPanelsInGrid(grid, panels);
+        return gridToString(grid);
     }
 }

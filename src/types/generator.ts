@@ -10,7 +10,7 @@ type TGridGenerator = {
     generateNext(): TGridGeneratorState;
     reset(): void;
     getCurrentState(): TGridGeneratorState;
-    log(): void;
+    toString(): string;
 };
 
 export { TGridGenerator, TGridGeneratorState };
