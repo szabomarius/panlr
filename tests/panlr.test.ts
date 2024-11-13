@@ -1,14 +1,61 @@
-import { withPanel } from '@/core/panlr';
+import { Panlr } from '@/core/panlr';
+import { type TGridGeneratorState } from '@/types/generator';
 
-describe('Panlr test', () => {
-    let consoleLogSpy: jest.SpyInstance;
+import { type TGridConfig } from '../src/types/grid';
+
+describe('Comic Panel Generator', () => {
+    let defaultConfig: TGridConfig;
+    let panlr: Panlr;
+    let expectedInitialState: TGridGeneratorState;
+
     beforeEach(() => {
-        consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+        defaultConfig = {
+            cols: 3,
+            rows: 3,
+            maxPanelSize: { cols: 2, rows: 2 },
+            minPanelSize: { cols: 1, rows: 1 },
+        };
+        panlr = new Panlr(defaultConfig);
+        expectedInitialState = {
+            settings: defaultConfig,
+            panels: [],
+            isComplete: false,
+        };
     });
-    it('logs', () => {
-        const panelSettings = { cols: 3, rows: 3 };
-        withPanel(panelSettings).log();
-        expect(consoleLogSpy).toHaveBeenCalledTimes(2);
-        expect(consoleLogSpy).toHaveBeenCalledWith('3 x 3');
+
+    describe('getCurrentState', () => {
+        it('should create a generator with initial empty state', () => {
+            const state = panlr.getCurrentState();
+            expect(state).toEqual({
+                settings: defaultConfig,
+                panels: [],
+                isComplete: false,
+            });
+        });
+
+        it('should never pass state by reference', () => {
+            const state = panlr.getCurrentState();
+            state.isComplete = true;
+            state.settings.cols = 10;
+            state.panels.push({
+                startRowIndex: 0,
+                startColIndex: 0,
+                cols: 1,
+                rows: 1,
+            });
+            expect(panlr.getCurrentState()).toEqual(expectedInitialState);
+        });
+    });
+
+    describe('panel generation', () => {
+        it('should generate a valid first panel within constraints', () => {});
+        it('should generate a valid second panel within constraints', () => {});
+        it('should finish generation on a 3x3 in less than 10 iterations', () => {});
+        it('should reset the generator state', () => {});
+    });
+
+    describe('validation', () => {
+        it('should throw error if maxPanelSize exceeds grid size', () => {});
+        it('should throw error if minPanelSize is larger than maxPanelSize', () => {});
     });
 });
