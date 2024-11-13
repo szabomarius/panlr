@@ -47,6 +47,23 @@ describe('Comic Panel Generator', () => {
         });
     });
 
+    describe('log', () => {
+        it('should log the empty grid nicely', () => {
+            const logSpy = jest.spyOn(console, 'log');
+            panlr.log();
+            // The expected grid string with proper spacing
+            const expectedGrid = [
+                '┌───────┐',
+                '│ . . . │',
+                '│ . . . │',
+                '│ . . . │',
+                '└───────┘',
+            ].join('\n');
+
+            expect(logSpy).toHaveBeenCalledWith(expectedGrid);
+        });
+    });
+
     describe('panel generation', () => {
         it('should generate a valid first panel within constraints', () => {});
         it('should generate a valid second panel within constraints', () => {});
