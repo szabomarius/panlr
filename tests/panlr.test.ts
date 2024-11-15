@@ -78,9 +78,56 @@ describe('Comic Panel Generator', () => {
     });
 
     describe('panel generation', () => {
-        it('should generate a valid first panel within constraints', () => {});
-        it('should generate a valid second panel within constraints', () => {});
-        it('should finish generation on a 3x3 in less than 10 iterations', () => {});
+        it('should generate a valid first panel with 1x1 constraints', () => {
+            panlr = new Panlr({
+                cols: 3,
+                rows: 3,
+                maxPanelSize: { cols: 1, rows: 1 },
+                minPanelSize: { cols: 1, rows: 1 },
+            });
+            const state = panlr.generateNext();
+            expect(state.panels).toEqual([
+                {
+                    startRowIndex: 0,
+                    startColIndex: 0,
+                    cols: 1,
+                    rows: 1,
+                },
+            ]);
+        });
+        it('should generate a valid second panel within 1x1 constraints', () => {
+            panlr = new Panlr({
+                cols: 3,
+                rows: 3,
+                maxPanelSize: { cols: 1, rows: 1 },
+                minPanelSize: { cols: 1, rows: 1 },
+            });
+            panlr.generateNext();
+            const { panels } = panlr.generateNext();
+            expect(panels).toEqual([
+                {
+                    startRowIndex: 0,
+                    startColIndex: 0,
+                    cols: 1,
+                    rows: 1,
+                },
+                {
+                    startRowIndex: 0,
+                    startColIndex: 1,
+                    cols: 1,
+                    rows: 1,
+                },
+            ]);
+        });
+        it('should finish generation on a 3x3 with 1x1 in exactly 9 iterations', () => {
+            let state = panlr.getCurrentState();
+            for (let i = 0; i < 9; i++) {
+                state = panlr.generateNext();
+            }
+            expect(state.isComplete).toBe(true);
+            expect(state.panels.length).toBe(9);
+            expect(panlr.generateNext()).toEqual(state);
+        });
         it('should reset the generator state', () => {});
     });
 
