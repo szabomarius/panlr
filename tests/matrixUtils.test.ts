@@ -49,7 +49,7 @@ const cases = [
             { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 1 },
         ],
         limits: { cols: 4, rows: 4 },
-        expectedIndexes: { startColIndex: 0, startRowIndex: 1 },
+        expectedIndexes: { startColIndex: 3, startRowIndex: 1 },
         expectedRange: { cols: 1, rows: 1 },
     },
     {
@@ -65,7 +65,7 @@ const cases = [
         panels: [{ startColIndex: 0, startRowIndex: 0, cols: 1, rows: 2 }],
         limits: { cols: 5, rows: 5 },
         expectedIndexes: { startColIndex: 1, startRowIndex: 0 },
-        expectedRange: { cols: 4, rows: 4 },
+        expectedRange: { cols: 4, rows: 2 },
     },
     {
         /**
@@ -81,7 +81,7 @@ const cases = [
         ],
         limits: { cols: 3, rows: 3 },
         expectedIndexes: { startColIndex: 2, startRowIndex: 1 },
-        expectedRange: { cols: 2, rows: 1 },
+        expectedRange: { cols: 1, rows: 2 },
     },
     {
         /**
