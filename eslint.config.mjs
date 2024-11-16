@@ -54,6 +54,11 @@ export default tseslint.config(
         },
     },
     {
-        ignores: ['server/types/db/generated.ts'],
+        ignores: [
+            'server/types/db/generated.ts',
+            'dist/**',
+            'node_modules/**',
+            'coverage/**',
+        ],
     }
 );

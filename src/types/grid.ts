@@ -1,17 +1,18 @@
-type TPanel = {
+type TPanelIndex = {
     startRowIndex: number;
     startColIndex: number;
+};
+
+type TPanelLimits = {
     cols: number;
     rows: number;
 };
 
-type TPanelLimits = Pick<TPanel, 'cols' | 'rows'>;
+type TPanel = TPanelIndex & TPanelLimits;
 
 type TGridConfig = TPanelLimits & {
-    cols: number;
-    rows: number;
     maxPanelSize?: TPanelLimits;
     minPanelSize?: TPanelLimits;
 };
 
-export { TGridConfig, TPanel, TPanelLimits };
+export { TGridConfig, TPanel, TPanelIndex, TPanelLimits };
