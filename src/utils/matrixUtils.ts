@@ -47,14 +47,26 @@ const getNextPanelRange = (
     limits: TGridConfig,
     nextIndex: TPanelIndex
 ) => {
-    const { cols, rows } = limits;
-    const { startRowIndex, startColIndex } = nextIndex;
-    const nextPanel = panels[panels.length - 1];
-    const nextColIndex = startColIndex + nextPanel.cols;
-    const nextRowIndex = startRowIndex + nextPanel.rows;
-    const nextPanelCols = nextColIndex < cols ? nextPanel.cols : 1;
-    const nextPanelRows = nextRowIndex < rows ? nextPanel.rows : 1;
-    return { cols: nextPanelCols, rows: nextPanelRows };
+    /** Given the following grid:
+     *  '┌───────┐',
+        '│ 1 1 1 │',
+        '│ 2 . . │',
+        '│ 2 . . │',
+        '└───────┘',
+        cols: 2, rows: 2
+     */
+    // Cols will always try to expand the remaining space
+    const cols = limits.cols - nextIndex.startColIndex;
+    // We try to expand rows on remaining space
+    let rows = limits.rows - nextIndex.startRowIndex;
+    if (nextIndex.startColIndex !== 0) {
+        // If we are not on the first row, then it means the previous panel
+        // will dictate how to layout the next panel, mainly the rows as cols
+        // can always expand
+        const lastPanel = panels[panels.length - 1];
+        rows = lastPanel.rows;
+    }
+    return { cols, rows };
 };
 
 export { getNextPanelRange, getNextStartingIndexes };

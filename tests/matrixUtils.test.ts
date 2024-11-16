@@ -3,6 +3,13 @@ import { getNextPanelRange, getNextStartingIndexes } from '@/utils/matrixUtils';
 
 const cases = [
     {
+        /**
+        '┌───────┐'
+        '│ 1 1 1 │'
+        '│ 2 2 2 │'
+        '│ . . . │'
+        '└───────┘'
+         */
         panels: [
             { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 1 },
             { startColIndex: 0, startRowIndex: 1, cols: 3, rows: 1 },
@@ -12,6 +19,13 @@ const cases = [
         expectedRange: { cols: 3, rows: 1 },
     },
     {
+        /**
+        '┌─────┐'
+        '│ 1 1 │'
+        '│ 2 2 │'
+        '│ 3 . │'
+        '└─────┘'
+         */
         panels: [
             { startColIndex: 0, startRowIndex: 0, cols: 2, rows: 1 },
             { startColIndex: 0, startRowIndex: 1, cols: 2, rows: 1 },
@@ -22,21 +36,45 @@ const cases = [
         expectedRange: { cols: 1, rows: 1 },
     },
     {
+        /**
+        '┌─────────┐'
+        '│ 1 1 1 2 │'
+        '│ 1 1 1 . │'
+        '│ . . . . │'
+        '│ . . . . │'
+        '└─────────┘'
+         */
         panels: [
             { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
             { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 1 },
         ],
         limits: { cols: 4, rows: 4 },
         expectedIndexes: { startColIndex: 0, startRowIndex: 1 },
-        expectedRange: { cols: 3, rows: 1 },
+        expectedRange: { cols: 1, rows: 1 },
     },
     {
+        /**
+        '┌───────────┐'
+        '│ 1 . . . . │'
+        '│ 1 . . . . │'
+        '│ . . . . . │'
+        '│ . . . . . │'
+        '│ . . . . . │'
+        '└───────────┘'
+         */
         panels: [{ startColIndex: 0, startRowIndex: 0, cols: 1, rows: 2 }],
         limits: { cols: 5, rows: 5 },
         expectedIndexes: { startColIndex: 1, startRowIndex: 0 },
-        expectedRange: { cols: 1, rows: 2 },
+        expectedRange: { cols: 4, rows: 4 },
     },
     {
+        /**
+        '┌───────┐'
+        '│ 1 1 1 │'
+        '│ 2 2 . │'
+        '│ 2 2 . │'
+        '└───────┘'
+         */
         panels: [
             { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 1 },
             { startColIndex: 0, startRowIndex: 1, cols: 2, rows: 2 },
@@ -44,6 +82,22 @@ const cases = [
         limits: { cols: 3, rows: 3 },
         expectedIndexes: { startColIndex: 2, startRowIndex: 1 },
         expectedRange: { cols: 2, rows: 1 },
+    },
+    {
+        /**
+        '┌───────┐'
+        '│ 1 1 1 │'
+        '│ 2 . . │'
+        '│ 2 . . │'
+        '└───────┘'
+         */
+        panels: [
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 1 },
+            { startColIndex: 0, startRowIndex: 1, cols: 1, rows: 2 },
+        ],
+        limits: { cols: 3, rows: 3 },
+        expectedIndexes: { startColIndex: 1, startRowIndex: 1 },
+        expectedRange: { cols: 2, rows: 2 },
     },
 ];
 describe('matrixUtils', () => {
@@ -54,7 +108,7 @@ describe('matrixUtils', () => {
     describe('getNextStartingIndexes', () => {
         describe('with multiple variants', () => {
             cases.forEach((testCase, index) => {
-                it(`should return correct indexes for case:${index} `, () => {
+                it(`should return correct indexes for case:${index + 1} `, () => {
                     const result = getNextStartingIndexes(
                         testCase.panels,
                         testCase.limits
@@ -99,7 +153,7 @@ describe('matrixUtils', () => {
     describe('getNextPanelRange', () => {
         describe('with multiple variants', () => {
             cases.forEach((testCase, index) => {
-                it(`should return correct range for case ${index}`, () => {
+                it(`should return correct range for case ${index + 1}`, () => {
                     const result = getNextPanelRange(
                         testCase.panels,
                         testCase.limits,
