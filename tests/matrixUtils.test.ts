@@ -100,6 +100,9 @@ const cases = [
         expectedRange: { cols: 2, rows: 2 },
     },
 ];
+// for easier debugging
+const runCases = [...cases];
+
 describe('matrixUtils', () => {
     let panelLimits: TGridConfig;
     beforeEach(() => {
@@ -107,7 +110,7 @@ describe('matrixUtils', () => {
     });
     describe('getNextStartingIndexes', () => {
         describe('with multiple variants', () => {
-            cases.forEach((testCase, index) => {
+            runCases.forEach((testCase, index) => {
                 it(`should return correct indexes for case:${index + 1} `, () => {
                     const result = getNextStartingIndexes(
                         testCase.panels,
@@ -152,7 +155,7 @@ describe('matrixUtils', () => {
     });
     describe('getNextPanelRange', () => {
         describe('with multiple variants', () => {
-            cases.forEach((testCase, index) => {
+            runCases.forEach((testCase, index) => {
                 it(`should return correct range for case ${index + 1}`, () => {
                     const result = getNextPanelRange(
                         testCase.panels,
