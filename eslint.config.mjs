@@ -6,6 +6,7 @@ import eslintPluginYml from 'eslint-plugin-yml';
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
+import globals from 'globals';
 
 export default tseslint.config(
     eslint.configs.recommended,
@@ -41,6 +42,15 @@ export default tseslint.config(
 
             // Disable specific Vue rules if needed
             'vue/first-attribute-linebreak': 'off',
+        },
+    },
+    {
+        files: ['jest.config.js'],
+        languageOptions: {
+            sourceType: 'commonjs',
+            globals: {
+                ...globals.node,
+            },
         },
     },
     {
