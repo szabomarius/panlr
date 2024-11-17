@@ -8,7 +8,6 @@ type TGridGeneratorState = {
 
 type TGridGenerator = {
     generateNext(): TGridGeneratorState;
-    reset(): void;
     getCurrentState(): TGridGeneratorState;
     toString(): string;
 };

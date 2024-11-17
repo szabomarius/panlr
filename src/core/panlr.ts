@@ -2,12 +2,13 @@ import {
     type TGridGenerator,
     type TGridGeneratorState,
 } from '@/types/generator';
-import { type TGridConfig } from '@/types/grid';
+import { type TGridConfig, type TPanelLimits } from '@/types/grid';
 import {
     createEmptyGrid,
     fillPanelsInGrid,
     gridToString,
 } from '@/utils/loggerUtils';
+import { getNextPanelRange, getNextStartingIndexes } from '@/utils/matrixUtils';
 
 export class Panlr implements TGridGenerator {
     /** IMPORTANT: never expose this directly
@@ -24,31 +25,30 @@ export class Panlr implements TGridGenerator {
         };
     }
 
-    generateNext(): TGridGeneratorState {
+    public generateNext(): TGridGeneratorState {
         if (this._isGridAreaFull()) {
             return this.getCurrentState();
         }
 
         // Generate the next panel
         const { panels } = this._state;
-        let startRowIndex = 0;
-        let startColIndex = 0;
-        // Find the next available start row and col index
-        panels.forEach((panel) => {
-            startRowIndex = Math.max(
-                startRowIndex,
-                panel.startRowIndex + panel.rows
-            );
-            startColIndex = Math.max(
-                startColIndex,
-                panel.startColIndex + panel.cols
-            );
-        });
+        const nextPanelIndexes = getNextStartingIndexes(
+            panels,
+            this._state.settings
+        );
+        if (nextPanelIndexes === null) {
+            this._state.isComplete = true;
+            return this.getCurrentState();
+        }
+        const nextPanelRanges = getNextPanelRange(
+            panels,
+            this._state.settings,
+            nextPanelIndexes
+        );
+        const nextPanelSize = this._generateRandomPanelSize(nextPanelRanges);
         panels.push({
-            startRowIndex,
-            startColIndex,
-            cols: 1,
-            rows: 1,
+            ...nextPanelIndexes,
+            ...nextPanelSize,
         });
 
         // Check if the grid is full
@@ -60,11 +60,7 @@ export class Panlr implements TGridGenerator {
         return this.getCurrentState();
     }
 
-    reset(): void {
-        throw new Error('Method not implemented.');
-    }
-
-    getCurrentState(): TGridGeneratorState {
+    public getCurrentState(): TGridGeneratorState {
         // Deep clone the state to avoid passing by reference
         return {
             ...this._state,
@@ -72,7 +68,7 @@ export class Panlr implements TGridGenerator {
         };
     }
 
-    toString(): string {
+    public toString(): string {
         const { rows, cols } = this._state.settings;
         const { panels } = this._state;
         const grid = createEmptyGrid(rows, cols);
@@ -80,7 +76,22 @@ export class Panlr implements TGridGenerator {
         return gridToString(grid);
     }
 
+    private _generateRandomPanelSize(range: TPanelLimits): TPanelLimits {
+        // Generate a random panel size using the range
+        const { cols: maxCols, rows: maxRows } = range;
+        const cols = Math.floor(Math.random() * (maxCols - 1)) + 1;
+        const rows = Math.floor(Math.random() * (maxRows - 1)) + 1;
+        // return panel
+        return {
+            cols,
+            rows,
+        };
+    }
+
     private _isGridAreaFull(): boolean {
+        if (this._state.isComplete) {
+            return true;
+        }
         const { rows, cols } = this._state.settings;
         // Calculate the total max area of the grid
         const gridArea = rows * cols;

@@ -240,11 +240,12 @@ describe('matrixUtils', () => {
         });
         describe('with edge cases', () => {
             it('should return full range when no panels are present', () => {
-                const result = getNextPanelRange([], panelLimits, {
+                const limits = { cols: 10, rows: 10 };
+                const result = getNextPanelRange([], limits, {
                     startColIndex: 0,
                     startRowIndex: 0,
                 });
-                expect(result).toStrictEqual(panelLimits);
+                expect(result).toStrictEqual({ cols: 10, rows: 10 });
             });
             it('shoudld throw and error when bad indexes are provided', () => {
                 const panels = [

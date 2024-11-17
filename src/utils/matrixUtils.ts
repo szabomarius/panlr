@@ -1,4 +1,9 @@
-import { type TGridConfig, type TPanel, type TPanelIndex } from '@/types/grid';
+import {
+    type TGridConfig,
+    type TPanel,
+    type TPanelIndex,
+    type TPanelLimits,
+} from '@/types/grid';
 import { type BinaryMatrix } from '@/types/matrix';
 // TODO: this should be named gridUtils and move the matrix logic into matrixUtils
 // TODO: this can probably be a class that takes in panels and limits and returns the next panel indexes
@@ -77,7 +82,7 @@ const getNextPanelRange = (
     panels: TPanel[],
     limits: TGridConfig,
     nextIndex: TPanelIndex
-) => {
+): TPanelLimits => {
     if (!panels.length) {
         return { cols: limits.cols, rows: limits.rows };
     }
