@@ -44,7 +44,8 @@ export class Panlr implements TGridGenerator {
         );
         const nextPanelSize = generateRandomPanelSize(
             nextPanelRanges,
-            this._state.settings.maxPanelSize || nextPanelRanges
+            this._state.settings.maxPanelSize || nextPanelRanges,
+            this._state.settings.randomizer
         );
         panels.push({
             ...nextPanelIndexes,

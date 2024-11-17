@@ -13,6 +13,7 @@ describe('Comic Panel Generator', () => {
             cols: 3,
             rows: 3,
             maxPanelSize: { cols: 2, rows: 2 },
+            randomizer: () => 1,
         };
         panlr = new Panlr(defaultConfig);
         expectedInitialState = {
@@ -88,7 +89,7 @@ describe('Comic Panel Generator', () => {
         });
     });
 
-    describe('panel generation', () => {
+    describe('panel generation with maximum sizes', () => {
         it('should generate a valid first panel with 1x1 constraints', () => {
             panlr = new Panlr({
                 cols: 3,
@@ -155,6 +156,61 @@ describe('Comic Panel Generator', () => {
             }
             const completedState = state;
             expect(panlr.generateNext()).toEqual(completedState);
+        });
+    });
+
+    describe('panel generation without limits', () => {
+        beforeEach(() => {
+            panlr = new Panlr({
+                cols: 6,
+                rows: 6,
+                randomizer: () => 0.5,
+            });
+        });
+        it('should generate a valid first panel without constraints', () => {
+            const state = panlr.generateNext();
+            const { startColIndex, startRowIndex, cols, rows } =
+                state.panels[0];
+            expect(startColIndex).toBe(0);
+            expect(startRowIndex).toBe(0);
+            expect(cols).toBeLessThanOrEqual(6);
+            expect(rows).toBeLessThanOrEqual(6);
+        });
+
+        it('should generate a valid second panel without constraints', () => {
+            panlr.generateNext();
+            const { panels } = panlr.generateNext();
+            expect(panels).toHaveLength(2);
+            expect(panels[1].cols).toBeLessThanOrEqual(3);
+            expect(panels[1].rows).toBeLessThanOrEqual(3);
+        });
+
+        it('should generate full matrix without any spaces using 1x1', () => {
+            const panlr = new Panlr({
+                cols: 3,
+                rows: 3,
+                randomizer: () => 0, // basically smallest panel size
+            });
+            let state = panlr.getCurrentState();
+            while (!state.isComplete) {
+                state = panlr.generateNext();
+            }
+            const area = state.panels.reduce(
+                (acc, panel) => (acc += panel.cols * panel.rows),
+                0
+            );
+            expect(area).toBe(9);
+        });
+
+        it('should generate full matrix without any spaces using 3x3', () => {
+            const panlr = new Panlr({
+                cols: 3,
+                rows: 3,
+                randomizer: () => 1, // basically largest panel size
+            });
+            const state = panlr.generateNext();
+            expect(state.panels.length).toBe(1);
+            expect(state.panels[0].cols * state.panels[0].rows).toBe(9);
         });
     });
 
