@@ -2,7 +2,8 @@ import {
     type TGridGenerator,
     type TGridGeneratorState,
 } from '@/types/generator';
-import { type TGridConfig, type TPanelLimits } from '@/types/grid';
+import { type TGridConfig } from '@/types/grid';
+import { generateRandomPanelSize } from '@/utils/generatorUtils';
 import {
     createEmptyGrid,
     fillPanelsInGrid,
@@ -26,10 +27,6 @@ export class Panlr implements TGridGenerator {
     }
 
     public generateNext(): TGridGeneratorState {
-        if (this._isGridAreaFull()) {
-            return this.getCurrentState();
-        }
-
         // Generate the next panel
         const { panels } = this._state;
         const nextPanelIndexes = getNextStartingIndexes(
@@ -45,14 +42,17 @@ export class Panlr implements TGridGenerator {
             this._state.settings,
             nextPanelIndexes
         );
-        const nextPanelSize = this._generateRandomPanelSize(nextPanelRanges);
+        const nextPanelSize = generateRandomPanelSize(
+            nextPanelRanges,
+            this._state.settings.maxPanelSize || nextPanelRanges
+        );
         panels.push({
             ...nextPanelIndexes,
             ...nextPanelSize,
         });
 
         // Check if the grid is full
-        if (this._isGridAreaFull()) {
+        if (getNextStartingIndexes(panels, this._state.settings) === null) {
             this._state.isComplete = true;
         }
 
@@ -74,38 +74,5 @@ export class Panlr implements TGridGenerator {
         const grid = createEmptyGrid(rows, cols);
         fillPanelsInGrid(grid, panels);
         return gridToString(grid);
-    }
-
-    private _generateRandomPanelSize(range: TPanelLimits): TPanelLimits {
-        // Generate a random panel size using the range
-        const { cols: maxCols, rows: maxRows } = range;
-        const cols = Math.floor(Math.random() * (maxCols - 1)) + 1;
-        const rows = Math.floor(Math.random() * (maxRows - 1)) + 1;
-        // return panel
-        return {
-            cols,
-            rows,
-        };
-    }
-
-    private _isGridAreaFull(): boolean {
-        if (this._state.isComplete) {
-            return true;
-        }
-        const { rows, cols } = this._state.settings;
-        // Calculate the total max area of the grid
-        const gridArea = rows * cols;
-
-        // Calculate the total area of all panels
-        const panelsArea = this._state.panels.reduce((acc, panel) => {
-            return acc + panel.cols * panel.rows;
-        }, 0);
-
-        // Throw an error here, shouldn't ever happen
-        if (gridArea < panelsArea) {
-            throw new Error('The total area of panels exceeds the grid area');
-        }
-
-        return gridArea === panelsArea;
     }
 }

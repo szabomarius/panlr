@@ -13,7 +13,6 @@ describe('Comic Panel Generator', () => {
             cols: 3,
             rows: 3,
             maxPanelSize: { cols: 2, rows: 2 },
-            minPanelSize: { cols: 1, rows: 1 },
         };
         panlr = new Panlr(defaultConfig);
         expectedInitialState = {
@@ -45,6 +44,19 @@ describe('Comic Panel Generator', () => {
             });
             expect(panlr.getCurrentState()).toEqual(expectedInitialState);
         });
+
+        it('should never return state by reference', () => {
+            const state = panlr.generateNext();
+            state.isComplete = true;
+            state.settings.cols = 10;
+            state.panels.push({
+                startRowIndex: 0,
+                startColIndex: 0,
+                cols: 1,
+                rows: 1,
+            });
+            expect(panlr.getCurrentState()).not.toEqual(state);
+        });
     });
 
     describe('log', () => {
@@ -64,7 +76,6 @@ describe('Comic Panel Generator', () => {
                 cols: 2,
                 rows: 2,
                 maxPanelSize: { cols: 1, rows: 1 },
-                minPanelSize: { cols: 1, rows: 1 },
             });
             const log = panlr.toString();
             const expectedGridLog = [
@@ -83,7 +94,6 @@ describe('Comic Panel Generator', () => {
                 cols: 3,
                 rows: 3,
                 maxPanelSize: { cols: 1, rows: 1 },
-                minPanelSize: { cols: 1, rows: 1 },
             });
             const state = panlr.generateNext();
             expect(state.panels).toEqual([
@@ -100,7 +110,6 @@ describe('Comic Panel Generator', () => {
                 cols: 3,
                 rows: 3,
                 maxPanelSize: { cols: 1, rows: 1 },
-                minPanelSize: { cols: 1, rows: 1 },
             });
             panlr.generateNext();
             const { panels } = panlr.generateNext();
@@ -120,6 +129,11 @@ describe('Comic Panel Generator', () => {
             ]);
         });
         it('should finish generation on a 3x3 with 1x1 in exactly 9 iterations', () => {
+            panlr = new Panlr({
+                cols: 3,
+                rows: 3,
+                maxPanelSize: { cols: 1, rows: 1 },
+            });
             let state = panlr.getCurrentState();
             for (let i = 0; i < 9; i++) {
                 state = panlr.generateNext();
@@ -128,11 +142,23 @@ describe('Comic Panel Generator', () => {
             expect(state.panels.length).toBe(9);
             expect(panlr.generateNext()).toEqual(state);
         });
-        it('should reset the generator state', () => {});
+
+        it('should return the same state if generation is complete', () => {
+            panlr = new Panlr({
+                cols: 2,
+                rows: 2,
+                maxPanelSize: { cols: 1, rows: 1 },
+            });
+            let state = panlr.getCurrentState();
+            while (!state.isComplete) {
+                state = panlr.generateNext();
+            }
+            const completedState = state;
+            expect(panlr.generateNext()).toEqual(completedState);
+        });
     });
 
     describe('validation', () => {
         it('should throw error if maxPanelSize exceeds grid size', () => {});
-        it('should throw error if minPanelSize is larger than maxPanelSize', () => {});
     });
 });
