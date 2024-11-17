@@ -238,5 +238,24 @@ describe('matrixUtils', () => {
                 });
             });
         });
+        describe('with edge cases', () => {
+            it('should return full range when no panels are present', () => {
+                const result = getNextPanelRange([], panelLimits, {
+                    startColIndex: 0,
+                    startRowIndex: 0,
+                });
+                expect(result).toStrictEqual(panelLimits);
+            });
+            it('shoudld throw and error when bad indexes are provided', () => {
+                const panels = [
+                    { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
+                ];
+                const badIndexes = { startColIndex: 3, startRowIndex: 3 };
+                const errorCaller = () => {
+                    getNextPanelRange(panels, panelLimits, badIndexes);
+                };
+                expect(errorCaller).toThrow('Something wacky happened');
+            });
+        });
     });
 });

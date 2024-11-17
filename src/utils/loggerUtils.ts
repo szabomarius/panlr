@@ -1,6 +1,7 @@
 import { type TPanel } from '@/types/grid';
 import { type BinaryMatrix } from '@/types/matrix';
 
+// TODO: concatenate with matrixUtils
 function createEmptyGrid(rows: number, cols: number): string[][] {
     const grid: string[][] = [];
     for (let i = 0; i < rows; i++) {
@@ -9,6 +10,7 @@ function createEmptyGrid(rows: number, cols: number): string[][] {
     return grid;
 }
 
+// TODO: concatenate with matrixUtils
 function fillPanelsInGrid(grid: string[][], panels: TPanel[]): void {
     panels.forEach((panel, index) => {
         for (
@@ -27,6 +29,7 @@ function fillPanelsInGrid(grid: string[][], panels: TPanel[]): void {
     });
 }
 
+// TODO: concatenate with matrixUtils
 function gridToString(grid: string[][]): string {
     const numCols = grid[0].length;
     const horizontalBorder = '─'.repeat(numCols * 2 + 1);
