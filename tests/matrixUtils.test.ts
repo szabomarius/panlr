@@ -55,6 +55,78 @@ const cases = [
     {
         /**
         '┌───────────┐'
+        '│ 1 1 1 2 2 │'
+        '│ 1 1 1 . . │'
+        '│ 1 1 1 . . │'
+        '│ . . . . . │'
+        '└───────────┘'
+         */
+        panels: [
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
+            { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 2 },
+        ],
+        limits: { cols: 4, rows: 4 },
+        expectedIndexes: { startColIndex: 3, startRowIndex: 1 },
+        expectedRange: { cols: 2, rows: 2 },
+    },
+    {
+        /**
+        '┌───────────┐'
+        '│ 1 1 1 2 3 │'
+        '│ 1 1 1 . . │'
+        '│ 1 1 1 . . │'
+        '│ . . . . . │'
+        '└───────────┘'
+         */
+        panels: [
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
+            { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 1 },
+            { startColIndex: 4, startRowIndex: 0, cols: 1, rows: 1 },
+        ],
+        limits: { cols: 4, rows: 4 },
+        expectedIndexes: { startColIndex: 3, startRowIndex: 1 },
+        expectedRange: { cols: 2, rows: 2 },
+    },
+    {
+        /**
+        '┌───────────┐'
+        '│ 1 1 1 2 2 │'
+        '│ 1 1 1 3 . │'
+        '│ . . . . . │'
+        '│ . . . . . │'
+        '└───────────┘'
+         */
+        panels: [
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
+            { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 2 },
+            { startColIndex: 3, startRowIndex: 1, cols: 1, rows: 1 },
+        ],
+        limits: { cols: 4, rows: 4 },
+        expectedIndexes: { startColIndex: 3, startRowIndex: 1 },
+        expectedRange: { cols: 1, rows: 1 },
+    },
+    {
+        /**
+        '┌─────────┐'
+        '│ 1 1 1 2 │'
+        '│ 3 3 4 . │'
+        '│ 3 3 . . │'
+        '│ . . . . │'
+        '└─────────┘'
+         */
+        panels: [
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
+            { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 1 },
+            { startColIndex: 0, startRowIndex: 1, cols: 2, rows: 2 },
+            { startColIndex: 2, startRowIndex: 1, cols: 1, rows: 1 },
+        ],
+        limits: { cols: 4, rows: 4 },
+        expectedIndexes: { startColIndex: 3, startRowIndex: 1 },
+        expectedRange: { cols: 1, rows: 1 },
+    },
+    {
+        /**
+        '┌───────────┐'
         '│ 1 . . . . │'
         '│ 1 . . . . │'
         '│ . . . . . │'
@@ -111,7 +183,7 @@ describe('matrixUtils', () => {
     describe('getNextStartingIndexes', () => {
         describe('with multiple variants', () => {
             runCases.forEach((testCase, index) => {
-                it(`should return correct indexes for case:${index + 1} `, () => {
+                it(`should return correct indexes for case:${index} `, () => {
                     const result = getNextStartingIndexes(
                         testCase.panels,
                         testCase.limits
@@ -156,7 +228,7 @@ describe('matrixUtils', () => {
     describe('getNextPanelRange', () => {
         describe('with multiple variants', () => {
             runCases.forEach((testCase, index) => {
-                it(`should return correct range for case ${index + 1}`, () => {
+                it(`should return correct range for case ${index}`, () => {
                     const result = getNextPanelRange(
                         testCase.panels,
                         testCase.limits,

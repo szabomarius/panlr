@@ -1,9 +1,8 @@
 import { type TGridConfig, type TPanel, type TPanelIndex } from '@/types/grid';
 
 /**
- * @param panels
- * @param limits
- * @returns index of the next panel or null if there is no space left
+ * See tests/matrixUtils.test.ts for visual examples
+ * @returns indexes of the next panel or null if there is no space left
  */
 const getNextStartingIndexes = (
     panels: TPanel[],
@@ -12,49 +11,41 @@ const getNextStartingIndexes = (
     if (!panels.length) {
         return { startColIndex: 0, startRowIndex: 0 };
     }
-    const { cols, rows } = limits;
+    const { cols: maxCols, rows: maxRows } = limits;
     const {
-        startRowIndex,
-        startColIndex,
-        rows: panelRows,
-        cols: panelCols,
+        startRowIndex: prevPanelRowIndex,
+        startColIndex: prevPanelColIndex,
+        rows: prevPanelRows,
+        cols: prevPanelCols,
     } = panels[panels.length - 1];
-    const nextColIndex = startColIndex + panelCols;
-    const nextRowIndex = startRowIndex + panelRows;
-    /** Given the following grid:
-     *          '┌───────┐',
-                '│ 1 1 1 │',
-                '│ 2 2 . │',
-                '│ 2 2 . │',
-                '└───────┘',
-        nextColIndex: 0, nextRowIndex: 1, panelRows: 2, panelCols: 2,
-        desiredIndex: x: 1, y: 2
-     */
+    // We try to do the logic by taking last panel added as reference
+    const nextColIndex = prevPanelColIndex + prevPanelCols;
+    const nextRowIndex = prevPanelRowIndex + prevPanelRows;
 
-    if (nextColIndex < cols) {
-        return { startColIndex: nextColIndex, startRowIndex };
+    // If it's not the last column, we fill in the remaining columns
+    if (nextColIndex < maxCols) {
+        return {
+            startColIndex: nextColIndex,
+            startRowIndex: prevPanelRowIndex,
+        };
     }
 
-    if (nextRowIndex < rows) {
+    if (nextRowIndex < maxRows) {
         return { startColIndex: 0, startRowIndex: nextRowIndex };
     }
 
     return null;
 };
 
+/**
+ * See tests/matrixUtils.test.ts for visual examples
+ * @returns maximum cols and rows for the next panel that fit nicely in the comic grid
+ */
 const getNextPanelRange = (
     panels: TPanel[],
     limits: TGridConfig,
     nextIndex: TPanelIndex
 ) => {
-    /** Given the following grid:
-     *  '┌───────┐',
-        '│ 1 1 1 │',
-        '│ 2 . . │',
-        '│ 2 . . │',
-        '└───────┘',
-        cols: 2, rows: 2
-     */
     // Cols will always try to expand the remaining space
     const cols = limits.cols - nextIndex.startColIndex;
     // We try to expand rows on remaining space
