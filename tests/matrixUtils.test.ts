@@ -45,7 +45,7 @@ const cases = [
         '└─────────┘'
          */
         panels: [
-            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 2 },
             { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 1 },
         ],
         limits: { cols: 4, rows: 4 },
@@ -63,9 +63,9 @@ const cases = [
          */
         panels: [
             { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
-            { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 2 },
+            { startColIndex: 3, startRowIndex: 0, cols: 2, rows: 1 },
         ],
-        limits: { cols: 4, rows: 4 },
+        limits: { cols: 5, rows: 4 },
         expectedIndexes: { startColIndex: 3, startRowIndex: 1 },
         expectedRange: { cols: 2, rows: 2 },
     },
@@ -83,7 +83,7 @@ const cases = [
             { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 1 },
             { startColIndex: 4, startRowIndex: 0, cols: 1, rows: 1 },
         ],
-        limits: { cols: 4, rows: 4 },
+        limits: { cols: 5, rows: 4 },
         expectedIndexes: { startColIndex: 3, startRowIndex: 1 },
         expectedRange: { cols: 2, rows: 2 },
     },
@@ -97,12 +97,12 @@ const cases = [
         '└───────────┘'
          */
         panels: [
-            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
-            { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 2 },
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 2 },
+            { startColIndex: 3, startRowIndex: 0, cols: 2, rows: 1 },
             { startColIndex: 3, startRowIndex: 1, cols: 1, rows: 1 },
         ],
-        limits: { cols: 4, rows: 4 },
-        expectedIndexes: { startColIndex: 3, startRowIndex: 1 },
+        limits: { cols: 5, rows: 4 },
+        expectedIndexes: { startColIndex: 4, startRowIndex: 1 },
         expectedRange: { cols: 1, rows: 1 },
     },
     {
@@ -115,7 +115,7 @@ const cases = [
         '└─────────┘'
          */
         panels: [
-            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 3 },
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 1 },
             { startColIndex: 3, startRowIndex: 0, cols: 1, rows: 1 },
             { startColIndex: 0, startRowIndex: 1, cols: 2, rows: 2 },
             { startColIndex: 2, startRowIndex: 1, cols: 1, rows: 1 },

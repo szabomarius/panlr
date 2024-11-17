@@ -1,4 +1,5 @@
 import { type TPanel } from '@/types/grid';
+import { type BinaryMatrix } from '@/types/matrix';
 
 function createEmptyGrid(rows: number, cols: number): string[][] {
     const grid: string[][] = [];
@@ -38,4 +39,16 @@ function gridToString(grid: string[][]): string {
     ].join('\n');
 }
 
-export { createEmptyGrid, fillPanelsInGrid, gridToString };
+const printMatrix = (matrix: BinaryMatrix): string => {
+    const numCols = matrix[0].length;
+    const horizontalBorder = '─'.repeat(numCols * 2 + 1);
+    const formattedRows = matrix.map((row) => '│ ' + row.join(' ') + ' │');
+
+    return [
+        `┌${horizontalBorder}┐`,
+        ...formattedRows,
+        `└${horizontalBorder}┘`,
+    ].join('\n');
+};
+
+export { createEmptyGrid, fillPanelsInGrid, gridToString, printMatrix };

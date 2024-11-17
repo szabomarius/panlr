@@ -1,4 +1,41 @@
 import { type TGridConfig, type TPanel, type TPanelIndex } from '@/types/grid';
+import { type BinaryMatrix } from '@/types/matrix';
+import { printMatrix } from '@/utils/loggerUtils';
+
+// TODO: concatenate with loggerUtils gridToString utils
+const getEmptyMatrix = (rows: number, cols: number): BinaryMatrix => {
+    const matrix: BinaryMatrix = [];
+    for (let i = 0; i < rows; i++) {
+        matrix.push(Array(cols).fill(0));
+    }
+    return matrix;
+};
+
+// TODO: concatenate with loggerUtils gridToString utils
+const fillMatrix = (panels: TPanel[], matrix: (0 | 1)[][]): BinaryMatrix => {
+    panels.forEach((panel) => {
+        for (
+            let row = panel.startRowIndex;
+            row < panel.startRowIndex + panel.rows;
+            row++
+        ) {
+            for (
+                let col = panel.startColIndex;
+                col < panel.startColIndex + panel.cols;
+                col++
+            ) {
+                // TODO: this algo needs improvements but it's good enough for now
+                if (
+                    matrix[row] !== undefined &&
+                    matrix[row][col] !== undefined
+                ) {
+                    matrix[row][col] = 1;
+                }
+            }
+        }
+    });
+    return matrix;
+};
 
 /**
  * See tests/matrixUtils.test.ts for visual examples
@@ -11,27 +48,18 @@ const getNextStartingIndexes = (
     if (!panels.length) {
         return { startColIndex: 0, startRowIndex: 0 };
     }
-    const { cols: maxCols, rows: maxRows } = limits;
-    const {
-        startRowIndex: prevPanelRowIndex,
-        startColIndex: prevPanelColIndex,
-        rows: prevPanelRows,
-        cols: prevPanelCols,
-    } = panels[panels.length - 1];
-    // We try to do the logic by taking last panel added as reference
-    const nextColIndex = prevPanelColIndex + prevPanelCols;
-    const nextRowIndex = prevPanelRowIndex + prevPanelRows;
+    const matrix: (0 | 1)[][] = fillMatrix(
+        panels,
+        getEmptyMatrix(limits.rows, limits.cols)
+    );
+    console.log(printMatrix(matrix));
 
-    // If it's not the last column, we fill in the remaining columns
-    if (nextColIndex < maxCols) {
-        return {
-            startColIndex: nextColIndex,
-            startRowIndex: prevPanelRowIndex,
-        };
-    }
-
-    if (nextRowIndex < maxRows) {
-        return { startColIndex: 0, startRowIndex: nextRowIndex };
+    for (let row = 0; row < limits.rows; row++) {
+        for (let col = 0; col < limits.cols; col++) {
+            if (matrix[row][col] === 0) {
+                return { startColIndex: col, startRowIndex: row };
+            }
+        }
     }
 
     return null;
