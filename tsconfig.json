@@ -3,11 +3,6 @@
         "target": "es2016",
         "module": "NodeNext",
         "moduleResolution": "nodenext",
-        "rootDir": "./",
-        "paths": {
-            "@/*": ["./src/*"]
-        },
-        "outDir": "dist",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
