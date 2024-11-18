@@ -1,0 +1,21 @@
+{
+    "name": "apps-pages",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro check && astro build",
+        "test": "astro test",
+        "lint": "eslint . && prettier . --check",
+        "lint:fix": "eslint . --fix && prettier . --write",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@comic-panlr/panlr": "*",
+        "astro": "^4.16.13",
+        "@astrojs/check": "^0.9.4",
+        "typescript": "^5.6.3"
+    }
+}
