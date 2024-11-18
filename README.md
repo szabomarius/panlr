@@ -1,4 +1,4 @@
-# comic-panlr
+# panlr
 
 A package to generate comic panels, dynamically and with ease.
 Visualized Example given a 3x3 grid
