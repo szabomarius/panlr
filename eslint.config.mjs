@@ -6,6 +6,7 @@ import eslintPluginYml from 'eslint-plugin-yml';
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
+import globals from 'globals';
 
 export default tseslint.config(
     eslint.configs.recommended,
@@ -44,6 +45,20 @@ export default tseslint.config(
         },
     },
     {
-        ignores: ['server/types/db/generated.ts'],
+        files: ['jest.config.js'],
+        languageOptions: {
+            sourceType: 'commonjs',
+            globals: {
+                ...globals.node,
+            },
+        },
+    },
+    {
+        ignores: [
+            'server/types/db/generated.ts',
+            'dist/**',
+            'node_modules/**',
+            'coverage/**',
+        ],
     }
 );
