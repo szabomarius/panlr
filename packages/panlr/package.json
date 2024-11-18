@@ -8,6 +8,7 @@
     "files": [
         "dist"
     ],
+    "packageManager": "npm@10.9.0",
     "scripts": {
         "build": "tsup",
         "dev": "tsup --watch",
