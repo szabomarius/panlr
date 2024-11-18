@@ -1,4 +1,9 @@
-import { HELLO_WORLD } from './config/config';
+import { Panlr } from '@/core/panlr';
+import { type TGridGenerator } from '@/types/generator';
+import { type TGridConfig } from '@/types/grid';
 
-const hello = HELLO_WORLD;
-console.log(hello);
+const usePanlr = (settings: TGridConfig): TGridGenerator => {
+    return new Panlr(settings);
+};
+
+export { usePanlr };
