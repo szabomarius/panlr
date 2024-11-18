@@ -31,9 +31,17 @@ function fillPanelsInGrid(grid: string[][], panels: TPanel[]): void {
 
 // TODO: concatenate with matrixUtils
 function gridToString(grid: string[][]): string {
+    const cellWidth = 2; // Fixed width for cells (supports numbers 1-99)
+
     const numCols = grid[0].length;
-    const horizontalBorder = '─'.repeat(numCols * 2 + 1);
-    const formattedRows = grid.map((row) => '│ ' + row.join(' ') + ' │');
+    const horizontalBorder = '─'.repeat(numCols * (cellWidth + 1) + 1);
+
+    const formattedRows = grid.map(
+        (row) =>
+            '│ ' +
+            row.map((cell) => cell.padStart(cellWidth, ' ')).join(' ') +
+            ' │'
+    );
 
     return [
         `┌${horizontalBorder}┐`,
