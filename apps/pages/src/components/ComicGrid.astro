@@ -1,0 +1,39 @@
+---
+
+---
+
+<script>
+    import { usePanlr } from '@packages/panlr';
+    let generator = usePanlr({
+        cols: 5,
+        rows: 5,
+    });
+    const grid = document.getElementById('grid');
+    if (grid) {
+        grid.textContent = generator.toString();
+    }
+    document.getElementById('generate')?.addEventListener('click', () => {
+        const state = generator.generateNext();
+        if (grid) {
+            grid.textContent = generator.toString();
+        }
+        if (state.isComplete) {
+            generator = usePanlr({
+                cols: 5,
+                rows: 5,
+            });
+        }
+    });
+</script>
+
+<div class="comic-container">
+    <pre id="grid"></pre>
+    <button id="generate">Generate Next Panel</button>
+</div>
+
+<style>
+    .comic-container {
+        font-family: monospace;
+        white-space: pre;
+    }
+</style>

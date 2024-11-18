@@ -13,9 +13,11 @@
         "astro": "astro"
     },
     "dependencies": {
-        "@packages/panlr": "*",
         "@astrojs/check": "^0.9.4",
+        "@astrojs/tailwind": "^5.1.2",
+        "@packages/panlr": "*",
         "astro": "^4.16.13",
+        "tailwindcss": "^3.4.15",
         "typescript": "^5.6.3"
     },
     "devDependencies": {
