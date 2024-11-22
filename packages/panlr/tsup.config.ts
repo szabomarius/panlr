@@ -6,6 +6,11 @@ export default defineConfig({
     dts: true, // Generate declaration file (.d.ts)
     splitting: false,
     sourcemap: true,
+    define: {
+        'process.env.NODE_ENV': process.env.NODE_ENV
+            ? JSON.stringify(process.env.NODE_ENV)
+            : JSON.stringify('development'),
+    },
     clean: true,
     minify: true,
     terserOptions: {

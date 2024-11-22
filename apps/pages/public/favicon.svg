@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#1e293b"/>
+  
+  <!-- Base grid dots -->
+  <g fill="white">
+    <circle cx="8" cy="8" r="2.3"/>
+    <circle cx="16" cy="8" r="2.3"/>
+    <circle cx="24" cy="8" r="2.3"/>
+    <circle cx="8" cy="16" r="2.3"/>
+    <circle cx="16" cy="16" r="2.3"/>
+    <circle cx="24" cy="16" r="2.3"/>
+    <circle cx="8" cy="24" r="2.3"/>
+    <circle cx="16" cy="24" r="2.3"/>
+    <circle cx="24" cy="24" r="2.3"/>
+  </g>
+</svg>

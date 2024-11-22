@@ -64,11 +64,11 @@ describe('Comic Panel Generator', () => {
         it('should log the empty grid on a 3x3', () => {
             const log = panlr.toString();
             const expectedGridLog = [
-                '┌───────┐',
-                '│ . . . │',
-                '│ . . . │',
-                '│ . . . │',
-                '└───────┘',
+                '┌──────────┐',
+                '│  .  .  . │',
+                '│  .  .  . │',
+                '│  .  .  . │',
+                '└──────────┘',
             ].join('\n');
             expect(log).toBe(expectedGridLog);
         });
@@ -80,10 +80,10 @@ describe('Comic Panel Generator', () => {
             });
             const log = panlr.toString();
             const expectedGridLog = [
-                '┌─────┐',
-                '│ . . │',
-                '│ . . │',
-                '└─────┘',
+                '┌───────┐',
+                '│  .  . │',
+                '│  .  . │',
+                '└───────┘',
             ].join('\n');
             expect(log).toBe(expectedGridLog);
         });

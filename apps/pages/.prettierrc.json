@@ -1,0 +1,27 @@
+{
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "vueIndentScriptAndStyle": true,
+    "singleAttributePerLine": true,
+    "useTabs": false,
+    "plugins": ["prettier-plugin-astro"],
+    "overrides": [
+        {
+            "files": "*.yaml",
+            "options": {
+                "tabWidth": 2,
+                "useTabs": false,
+                "singleQuote": false
+            }
+        },
+        {
+            "files": "*.astro",
+            "options": {
+                "parser": "astro"
+            }
+        }
+    ]
+}

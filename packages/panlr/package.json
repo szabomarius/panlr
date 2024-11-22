@@ -1,5 +1,5 @@
 {
-    "name": "comic-panlr",
+    "name": "@packages/panlr",
     "version": "0.0.1",
     "description": "A package to generate comic panels, dynamically and with ease.",
     "main": "./dist/index.js",
@@ -8,6 +8,13 @@
     "files": [
         "dist"
     ],
+    "exports": {
+        ".": {
+            "require": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "types": "./dist/index.d.ts"
+        }
+    },
     "packageManager": "npm@10.9.0",
     "scripts": {
         "build": "tsup",

@@ -1,0 +1,102 @@
+---
+interface Props {
+    cols: number;
+    rows: number;
+    maxCols?: number;
+    maxRows?: number;
+    title?: string;
+}
+
+const {
+    cols = 3,
+    rows = 3,
+    maxCols = 2,
+    maxRows = 2,
+    title = 'Basic Grid Demo',
+} = Astro.props;
+
+import { usePanlr } from '@packages/panlr';
+const generator = usePanlr({
+    cols,
+    rows,
+    maxPanelSize: { cols: maxCols, rows: maxRows },
+});
+const initialGrid = generator.toString();
+---
+
+<div class="demo-container">
+    <h3>{title}</h3>
+    <div
+        class="grid-container"
+        data-cols={cols}
+        data-rows={rows}
+        data-max-cols={maxCols}
+        data-max-rows={maxRows}
+    >
+        <pre class="grid">{initialGrid}</pre>
+        <button class="generate">Next Panel</button>
+        <button class="reset">Reset</button>
+    </div>
+</div>
+
+<script>
+    // Will replace with package import
+    import { usePanlr } from '@packages/panlr';
+
+    const containers: HTMLElement[] = document.querySelectorAll(
+        '.grid-container'
+    ) as unknown as HTMLElement[];
+
+    containers.forEach((container: HTMLElement) => {
+        const config = {
+            cols: Number(container.dataset.cols),
+            rows: Number(container.dataset.rows),
+            maxPanelSize: {
+                cols: Number(container.dataset.maxCols),
+                rows: Number(container.dataset.maxRows),
+            },
+        };
+        console.log(config);
+
+        // Will replace with:
+        const generator = usePanlr({
+            ...config,
+        });
+
+        const grid = container.querySelector('.grid');
+        const generateBtn = container.querySelector('.generate');
+        const resetBtn = container.querySelector('.reset');
+
+        generateBtn?.addEventListener('click', () => {
+            const state = generator.generateNext();
+            console.log(state);
+            if (grid) {
+                grid.textContent = generator.toString();
+            }
+        });
+
+        resetBtn?.addEventListener('click', () => {
+            if (grid) {
+                grid.textContent = generator.toString();
+            }
+        });
+    });
+</script>
+
+<style>
+    .demo-container {
+        margin: 1rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .grid-container {
+        font-family: monospace;
+        white-space: pre;
+    }
+
+    button {
+        margin: 0.5rem;
+    }
+</style>
