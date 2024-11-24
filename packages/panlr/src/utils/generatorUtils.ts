@@ -9,19 +9,17 @@ function generateRandomPanelSize(
 ): TPanelLimits {
     const maxCols = Math.min(range.cols, upperLimits.cols);
     const maxRows = Math.min(range.rows, upperLimits.rows);
-    const cols = Math.max(Math.floor(randomizer() * maxCols), 1);
-    const rows = Math.max(Math.floor(randomizer() * maxRows), 1);
+
+    // Determine the size intervals
+    const cols = Math.ceil(randomizer() * maxCols);
+    const rows = Math.ceil(randomizer() * maxRows);
 
     loggr.table({
         range: { cols: range.cols, rows: range.rows },
         upperLimits: { cols: upperLimits.cols, rows: upperLimits.rows },
         result: { cols, rows },
-        randomizer: {
-            cols: Math.floor(randomizer()) * maxCols,
-            rows: Math.floor(randomizer()) * maxRows,
-        },
     });
-    return { cols, rows };
+    return { cols: Math.max(cols, 1), rows: Math.max(rows, 1) };
 }
 
 export { generateRandomPanelSize };
