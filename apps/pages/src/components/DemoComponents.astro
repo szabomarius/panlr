@@ -59,7 +59,7 @@ const initialGrid = generator.toString();
         console.log(config);
 
         // Will replace with:
-        const generator = usePanlr({
+        let generator = usePanlr({
             ...config,
         });
 
@@ -77,6 +77,9 @@ const initialGrid = generator.toString();
 
         resetBtn?.addEventListener('click', () => {
             if (grid) {
+                generator = usePanlr({
+                    ...config,
+                });
                 grid.textContent = generator.toString();
             }
         });
