@@ -141,6 +141,24 @@ const cases = [
     },
     {
         /**
+        '┌───────────┐'
+        '│ 1 1 1 1 2 │'
+        '│ 1 1 1 1 2 │'
+        '│ . . . . . │'
+        '│ . . . . . │'
+        '│ . . . . . │'
+        '└───────────┘'
+         */
+        panels: [
+            { startColIndex: 0, startRowIndex: 0, cols: 4, rows: 2 },
+            { startColIndex: 0, startRowIndex: 0, cols: 1, rows: 2 },
+        ],
+        limits: { cols: 4, rows: 4 },
+        expectedIndexes: { startColIndex: 0, startRowIndex: 2 },
+        expectedRange: { cols: 4, rows: 4 },
+    },
+    {
+        /**
         '┌───────┐'
         '│ 1 1 1 │'
         '│ 2 2 . │'
@@ -170,6 +188,22 @@ const cases = [
         limits: { cols: 3, rows: 3 },
         expectedIndexes: { startColIndex: 1, startRowIndex: 1 },
         expectedRange: { cols: 2, rows: 2 },
+    },
+    {
+        /**
+        '┌───────┐'
+        '│ 1 1 1 │'
+        '│ 2 2 2 │'
+        '│ . . . │'
+        '└───────┘'
+         */
+        panels: [
+            { startColIndex: 0, startRowIndex: 0, cols: 3, rows: 1 },
+            { startColIndex: 0, startRowIndex: 1, cols: 3, rows: 1 },
+        ],
+        limits: { cols: 3, rows: 3 },
+        expectedIndexes: { startColIndex: 0, startRowIndex: 2 },
+        expectedRange: { cols: 3, rows: 1 },
     },
 ];
 // for easier debugging
