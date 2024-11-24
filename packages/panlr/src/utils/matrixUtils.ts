@@ -99,7 +99,11 @@ const getNextPanelRange = (
         }
         if (
             row > nextIndex.startRowIndex &&
-            matrix[row][nextIndex.startColIndex - 1] !== 1
+            matrix[row][nextIndex.startColIndex - 1] !== 1 &&
+            // Here is handling for when we start on empty row, we can
+            // expand all the way down if col === 0 which means at the
+            // start of a new row
+            nextIndex.startColIndex > 0
         ) {
             break;
         }
@@ -109,13 +113,14 @@ const getNextPanelRange = (
                 continue;
             }
             /**
-            '┌───────────┐'
-            '│ 1 1 1 2 2 │'
-            '│ 1 1 1 . . │'
-            '│ 1 1 1 . . │'
-            '│ . . . . . │'
-            '└───────────┘'
-            */
+        '┌───────────┐'
+        '│ 1 1 1 1 2 │'
+        '│ 1 1 1 1 2 │'
+        '│ . . . . . │'
+        '│ . . . . . │'
+        '│ . . . . . │'
+        '└───────────┘'
+         */
             // Alright so the logic is the following, starting from the colIndex
             // we fill up to the right until we reach a new row, once we reach a new
             // row we check if there's space on the right of the colIndex
