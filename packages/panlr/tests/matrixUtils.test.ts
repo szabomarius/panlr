@@ -151,11 +151,11 @@ const cases = [
          */
         panels: [
             { startColIndex: 0, startRowIndex: 0, cols: 4, rows: 2 },
-            { startColIndex: 0, startRowIndex: 0, cols: 1, rows: 2 },
+            { startColIndex: 4, startRowIndex: 0, cols: 1, rows: 2 },
         ],
-        limits: { cols: 4, rows: 4 },
+        limits: { cols: 5, rows: 5 },
         expectedIndexes: { startColIndex: 0, startRowIndex: 2 },
-        expectedRange: { cols: 4, rows: 4 },
+        expectedRange: { cols: 5, rows: 3 },
     },
     {
         /**
