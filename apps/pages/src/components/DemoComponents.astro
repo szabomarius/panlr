@@ -10,8 +10,8 @@ interface Props {
 const {
     cols = 3,
     rows = 3,
-    maxCols = 2,
-    maxRows = 2,
+    maxCols = Infinity,
+    maxRows = Infinity,
     title = 'Basic Grid Demo',
 } = Astro.props;
 
@@ -24,18 +24,29 @@ const generator = usePanlr({
 const initialGrid = generator.toString();
 ---
 
-<div class="demo-container">
-    <h3>{title}</h3>
+<div class="demo-container p-6 bg-gray-800 rounded-lg shadow-lg">
+    <h3 class="text-lg font-bold text-gray-100 mb-4 text-center">{title}</h3>
     <div
-        class="grid-container"
+        class="grid-container bg-gray-900 p-4 rounded-md border border-gray-700"
         data-cols={cols}
         data-rows={rows}
         data-max-cols={maxCols}
         data-max-rows={maxRows}
     >
-        <pre class="grid">{initialGrid}</pre>
-        <button class="generate">Next Panel</button>
-        <button class="reset">Reset</button>
+        <pre
+            class="grid text-gray-200 bg-gray-800 p-4 rounded-md mb-4 font-mono text-sm leading-relaxed overflow-auto">{initialGrid.trim()}</pre>
+        <div class="flex justify-center gap-4 mt-4">
+            <button
+                class="generate bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md transition-transform transform hover:scale-105 font-medium"
+            >
+                Next Panel
+            </button>
+            <button
+                class="reset bg-gray-700 hover:bg-gray-800 text-white px-6 py-2 rounded-lg shadow-md transition-transform transform hover:scale-105 font-medium"
+            >
+                Reset
+            </button>
+        </div>
     </div>
 </div>
 
@@ -85,21 +96,3 @@ const initialGrid = generator.toString();
         });
     });
 </script>
-
-<style>
-    .demo-container {
-        margin: 1rem;
-        padding: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .grid-container {
-        font-family: monospace;
-        white-space: pre;
-    }
-
-    button {
-        margin: 0.5rem;
-    }
-</style>

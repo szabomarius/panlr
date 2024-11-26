@@ -4,25 +4,56 @@ import DemoComponents from '../components/DemoComponents.astro';
 ---
 
 <Layout title="Welcome to the Demo Page.">
-    <main>
-        <DemoComponents
-            cols={5}
-            rows={5}
-            maxCols={3}
-            maxRows={3}
-        />
-        <DemoComponents
-            cols={3}
-            rows={3}
-            maxCols={3}
-            maxRows={3}
-        />
-        <DemoComponents
-            cols={10}
-            rows={10}
-            maxCols={5}
-            maxRows={5}
-        />
+    <main class="container mx-auto px-4 py-8">
+        <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto"
+        >
+            <DemoComponents
+                title="Panel 1"
+                cols={3}
+                rows={3}
+            />
+            <DemoComponents
+                title="Panel 2"
+                cols={5}
+                rows={5}
+            />
+            <DemoComponents
+                title="Panel 3"
+                cols={5}
+                rows={5}
+            />
+            <DemoComponents
+                title="Panel 4"
+                cols={5}
+                rows={5}
+            />
+            <DemoComponents
+                title="Panel 5"
+                cols={5}
+                rows={5}
+            />
+            <DemoComponents
+                title="Panel 6"
+                cols={5}
+                rows={5}
+            />
+            <DemoComponents
+                title="Panel 7"
+                cols={5}
+                rows={5}
+            />
+            <DemoComponents
+                title="Panel 8"
+                cols={5}
+                rows={5}
+            />
+            <DemoComponents
+                title="Panel 9"
+                cols={5}
+                rows={5}
+            />
+        </div>
     </main>
 </Layout>
 
@@ -30,7 +61,6 @@ import DemoComponents from '../components/DemoComponents.astro';
     main {
         margin: auto;
         padding: 1rem;
-        width: 800px;
         max-width: calc(100% - 2rem);
         color: white;
         font-size: 20px;
