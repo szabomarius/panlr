@@ -5,53 +5,62 @@ import DemoComponents from '../components/DemoComponents.astro';
 
 <Layout title="Welcome to the Demo Page.">
     <main class="container mx-auto px-4 py-8">
+        <h3 class="text-lg font-bold text-gray-100 mb-4 text-center">
+            Some Scenarios
+        </h3>
         <div
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto"
         >
             <DemoComponents
-                title="Panel 1"
+                title="3x3"
                 cols={3}
                 rows={3}
             />
             <DemoComponents
-                title="Panel 2"
+                title="10x10"
+                cols={10}
+                rows={10}
+            />
+            <DemoComponents
+                title="5x5"
                 cols={5}
                 rows={5}
             />
             <DemoComponents
-                title="Panel 3"
-                cols={5}
-                rows={5}
+                title="4x2"
+                cols={4}
+                rows={2}
             />
             <DemoComponents
-                title="Panel 4"
-                cols={5}
-                rows={5}
+                title="4x8"
+                cols={4}
+                rows={8}
             />
             <DemoComponents
-                title="Panel 5"
-                cols={5}
-                rows={5}
+                title="2x2"
+                cols={2}
+                rows={2}
             />
             <DemoComponents
-                title="Panel 6"
-                cols={5}
-                rows={5}
+                title="4x4(max 2x2)"
+                cols={4}
+                rows={4}
+                maxCols={2}
+                maxRows={2}
             />
             <DemoComponents
-                title="Panel 7"
-                cols={5}
-                rows={5}
+                title="10x10(max 1x1)"
+                cols={10}
+                rows={10}
+                maxCols={1}
+                maxRows={1}
             />
             <DemoComponents
-                title="Panel 8"
+                title="10x10(max 1x4)"
                 cols={5}
                 rows={5}
-            />
-            <DemoComponents
-                title="Panel 9"
-                cols={5}
-                rows={5}
+                maxCols={1}
+                maxRows={4}
             />
         </div>
     </main>
