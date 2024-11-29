@@ -1,5 +1,5 @@
 {
-    "name": "@packages/panlr",
+    "name": "panlr",
     "version": "1.0.0",
     "description": "A package to generate comic panels, dynamically and with ease.",
     "main": "./dist/index.js",
