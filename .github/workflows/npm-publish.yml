@@ -16,7 +16,7 @@ jobs:
             - run: npm run test
             - name: Validate version
               run: |
-                  PACKAGE_VERSION=$(node -p "require('./package.json').version")
+                  PACKAGE_VERSION=$(node -p "require('./packages/panlr/package.json').version")
                   RELEASE_VERSION=${{ github.event.release.tag_name }}
                   if [[ "v$PACKAGE_VERSION" != "$RELEASE_VERSION" ]]; then
                     echo "Error: Package version $PACKAGE_VERSION does not match release version $RELEASE_VERSION"
