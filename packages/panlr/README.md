@@ -140,11 +140,15 @@ console.log(state.panels[0]);
    rows: number; // number of rows the panel occupies
 */
 ```
+
 ### Reference
+
 ```typescript
 usePanlr(config: TGridConfig): TGridGenerator
 ```
+
 `config: TGridConfig`
+
 <table>
    <tr>
       <th>Param</th>
@@ -185,6 +189,7 @@ usePanlr(config: TGridConfig): TGridGenerator
 </table>
 
 `@return TGridGenerator`
+
 <table>
    <tr>
       <th>Method</th>
@@ -213,6 +218,7 @@ usePanlr(config: TGridConfig): TGridGenerator
 </table>
 
 `@return TGridGeneratorState`
+
 <table>
    <tr>
       <th>Param</th>
