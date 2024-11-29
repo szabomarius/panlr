@@ -1,5 +1,5 @@
 {
-    "name": "comic-panlr-monorepo",
+    "name": "panlr-monorepo",
     "description": "A monorepo for the panlr package",
     "private": true,
     "packageManager": "npm@10.9.0",
